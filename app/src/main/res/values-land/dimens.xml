@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- lbl_task_name dimen -->
+    <dimen name="lbl_task_name_margin_text_size">30sp</dimen>
+
+
+
+    <!-- lbl_project_name dimen -->
+    <dimen name="lbl_project_name_margin_text_size">26sp</dimen>
+
+
+</resources>

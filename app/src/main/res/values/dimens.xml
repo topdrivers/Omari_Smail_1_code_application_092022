@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+            <!-- image_project dimen -->
+    <dimen name="image_project_width">48dp</dimen>
+    <dimen name="image_project_height">48dp</dimen>
+    <dimen name="image_project_margin_start">36dp</dimen>
+    <dimen name="image_project_margin_top">8dp</dimen>
+    <dimen name="image_project_margin_end">16dp</dimen>
+    <dimen name="image_project_margin_bottom">8dp</dimen>
+
+
+    <!-- img_delete dimen -->
+    <dimen name="img_delete_width">34dp</dimen>
+    <dimen name="img_delete_height">34dp</dimen>
+    <dimen name="img_delete_margin_start">16dp</dimen>
+    <dimen name="img_delete_margin_top">8dp</dimen>
+    <dimen name="img_delete_margin_end">16dp</dimen>
+    <dimen name="img_delete_margin_bottom">8dp</dimen>
+
+    <!-- lbl_task_name dimen -->
+    <dimen name="lbl_task_name_margin_start">10dp</dimen>
+    <dimen name="lbl_task_name_margin_top">8dp</dimen>
+    <dimen name="lbl_task_name_margin_text_size">18sp</dimen>
+
+
+
+    <!-- lbl_project_name dimen -->
+    <dimen name="lbl_project_name_margin_start">10dp</dimen>
+    <dimen name="lbl_project_name_margin_bottom">8dp</dimen>
+    <dimen name="lbl_project_name_margin_text_size">18sp</dimen>
+
+
+    <!-- text size dimen -->
+    <dimen name="no_task_text_size">22sp</dimen>
+
+    <!-- no tasks image size dimen -->
+    <dimen name="no_task_image_size">200dp</dimen>
+
+
+
+
+
+
+
+</resources>

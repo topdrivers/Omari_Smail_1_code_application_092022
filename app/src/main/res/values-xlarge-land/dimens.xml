@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- lbl_task_name dimen -->
+    <dimen name="lbl_task_name_margin_start">20dp</dimen>
+
+
+    <!-- lbl_project_name dimen -->
+    <dimen name="lbl_project_name_margin_start">300dp</dimen>
+
+    <!-- text size dimen -->
+    <dimen name="no_task_text_size">32sp</dimen>
+
+
+    <!-- no tasks image size dimen -->
+    <dimen name="no_task_image_size">600dp</dimen>
+
+    <!-- lbl_task_name dimen -->
+    <dimen name="lbl_task_name_margin_text_size">36sp</dimen>
+
+
+
+    <!-- lbl_project_name dimen -->
+    <dimen name="lbl_project_name_margin_text_size">32sp</dimen>
+
+
+</resources>
