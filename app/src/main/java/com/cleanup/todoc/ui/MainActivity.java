@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity implements TasksAdapter.Dele
 
     private void getAllProject() {
         itemViewModel.getProjects().observe(this, this::getProjectInVar);
+        //projectList = itemViewModel.getProjects().getValue();
         System.out.println("----------------getallproject---------"+itemViewModel.getProjects().getValue());
     }
 
