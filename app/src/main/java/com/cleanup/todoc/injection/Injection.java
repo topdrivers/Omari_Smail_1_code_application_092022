@@ -1,7 +1,6 @@
 package com.cleanup.todoc.injection;
 
 import android.content.Context;
-
 import com.cleanup.todoc.database.dao.TodocDatabase;
 import com.cleanup.todoc.repository.ItemDataRepository;
 import com.cleanup.todoc.repository.ProjectDataRepository;
@@ -14,7 +13,6 @@ import java.util.concurrent.Executors;
  */
 
 public class Injection {
-
     public static ItemDataRepository provideItemDataSource(Context context) {
         TodocDatabase database = TodocDatabase.getInstance(context);
         return new ItemDataRepository(database.itemDao());
@@ -33,4 +31,5 @@ public class Injection {
         Executor executor = provideExecutor();
         return new ViewModelFactory(dataSourceItem, dataSourceUser, executor);
     }
+
 }

@@ -1,7 +1,5 @@
 package com.cleanup.todoc.database.dao;
 
-import static com.cleanup.todoc.ui.MainActivity.itemViewModel;
-
 import android.content.Context;
 
 import androidx.annotation.NonNull;
@@ -23,12 +21,10 @@ public abstract class TodocDatabase extends RoomDatabase {
 
 
     // --- SINGLETON ---
-
     private static volatile TodocDatabase INSTANCE;
 
 
     // --- DAO ---
-
     public abstract ItemDao itemDao();
 
 
@@ -36,7 +32,6 @@ public abstract class TodocDatabase extends RoomDatabase {
 
 
     // --- INSTANCE ---
-
     public static TodocDatabase getInstance(Context context) {
 
         if (INSTANCE == null) {
@@ -74,13 +69,11 @@ public abstract class TodocDatabase extends RoomDatabase {
 
                 super.onCreate(db);
                 List<Project> projectList = new ArrayList<>();
-                projectList.add(new Project(1L, "Projet Tartampion", 0xFFEADAD1));
-                projectList.add(new Project(2L, "Projet Lucidia", 0xFFB4CDBA));
-                projectList.add(new Project(3L, "Projet Circus", 0xFFA3CED2));
+                projectList.add(new Project(0, "Projet Tartampion", 0xFFEADAD1));
+                projectList.add(new Project(1, "Projet Lucidia", 0xFFB4CDBA));
+                projectList.add(new Project(2, "Projet Circus", 0xFFA3CED2));
 
                 Executors.newSingleThreadExecutor().execute(() -> INSTANCE.projectDao().createProject( projectList));
-                //Executors.newSingleThreadExecutor().execute(() -> INSTANCE.projectDao().createProject( Project.getAllProjects()));
-
 
             }
 

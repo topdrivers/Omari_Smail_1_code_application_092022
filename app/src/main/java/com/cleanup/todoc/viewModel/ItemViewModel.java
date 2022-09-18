@@ -1,12 +1,8 @@
 package com.cleanup.todoc.viewModel;
 
-import android.content.Context;
-
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-
-
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.repository.ItemDataRepository;
@@ -17,10 +13,12 @@ import java.util.concurrent.Executor;
 
 public class ItemViewModel extends ViewModel {
 
+
     // REPOSITORIES
     private final ItemDataRepository itemDataSource;
     private final ProjectDataRepository projectDataSource;
     private final Executor executor;
+
 
     // DATA
     @Nullable
@@ -40,7 +38,7 @@ public class ItemViewModel extends ViewModel {
     }
 
     // -------------
-    // FOR USER
+    // FOR Project
     // -------------
 
     public LiveData <List<Project>> getProjects() { return projectDataSource.getProject();  }
@@ -53,50 +51,39 @@ public class ItemViewModel extends ViewModel {
         return itemDataSource.getItems();
     }
 
+
     public void createItem(Task task) {
-        executor.execute(() -> {
-            itemDataSource.createItem(task);
-        });
+        executor.execute(() -> itemDataSource.createItem(task));
     }
 
     public void deleteItem(long itemId) {
-        executor.execute(() -> {
-            itemDataSource.deleteItem(itemId);
-        });
+        executor.execute(() -> itemDataSource.deleteItem(itemId));
     }
 
     public void updateItem(Task task) {
-        executor.execute(() -> {
-            itemDataSource.updateItem(task);
-        });
+        executor.execute(() -> itemDataSource.updateItem(task));
     }
 
     public LiveData<List<Task>> sortAZItem(){
-        executor.execute(() -> {
-             itemDataSource.sortAZItem();
-        });
+        executor.execute(itemDataSource::sortAZItem);
         return itemDataSource.sortAZItem();
     }
 
 
     public LiveData<List<Task>> sortZAItem() {
-        executor.execute(() -> {
-            itemDataSource.sortZAItem();
-        });
+        executor.execute(itemDataSource::sortZAItem);
         return itemDataSource.sortZAItem();
     }
 
     public LiveData<List<Task>> sortOldItem() {
-        executor.execute(() -> {
-            itemDataSource.sortOldItem();
-        });
+        executor.execute(itemDataSource::sortOldItem);
         return itemDataSource.sortOldItem();
     }
 
     public LiveData<List<Task>> sortRecentItem() {
-        executor.execute(() -> {
-            itemDataSource.sortRecentItem();
-        });
+        executor.execute(itemDataSource::sortRecentItem);
         return itemDataSource.sortRecentItem();
     }
+
+
 }

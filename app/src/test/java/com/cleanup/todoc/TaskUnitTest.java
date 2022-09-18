@@ -1,103 +1,127 @@
 package com.cleanup.todoc;
 
+import com.cleanup.todoc.Utils.LiveDataTestUtil;
+
+import com.cleanup.todoc.database.dao.TodocDatabase;
+import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import java.util.List;
 import static org.junit.Assert.assertSame;
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.room.Room;
 
 /**
  * Unit tests for tasks
  *
  * @author Gaëtan HERFRAY
  */
+
+
+@RunWith(RobolectricTestRunner.class)
 public class TaskUnitTest {
+
+    // FOR DATA
+    private TodocDatabase database;
+    private static final List<Project> PROJECT_DEMO = new ArrayList<>();
+    // DATA SET FOR TEST
+    private static final long PROJECT_ID = 1;
+    private static final Task TASK1 = new Task(1, PROJECT_ID, "aaa", 100);
+    private static final Task TASK2 = new Task(2, PROJECT_ID, "zzz", 100);
+    private static final Task TASK3 = new Task(3, PROJECT_ID, "ttt", 100);
+
+
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
+    @Before
+    public void setup() {
+
+        this.database = Room.inMemoryDatabaseBuilder(androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().getContext(),
+                        TodocDatabase.class)
+                .allowMainThreadQueries()
+                .build();
+        PROJECT_DEMO.add(new Project(0, "Projet 1", 0x000000));
+        PROJECT_DEMO.add(new Project(1, "Projet 2", 0x00FF00));
+        PROJECT_DEMO.add(new Project(2, "Projet 3", 0xFF0000));
+    }
+
+    @After
+    public void closeDb() throws Exception {
+        database.close();
+    }
+
+
+
     @Test
-    public void test_projects() {
-        final Task task1 = new Task(1, 1, "task 1", new Date().getTime());
-        final Task task2 = new Task(2, 2, "task 2", new Date().getTime());
-        final Task task3 = new Task(3, 3, "task 3", new Date().getTime());
-        final Task task4 = new Task(4, 4, "task 4", new Date().getTime());
+    public void test_az_comparator() throws InterruptedException {
+        database.projectDao().createProject(PROJECT_DEMO);
 
-       /* assertEquals("Projet Tartampion", task1.getProject().getName());
-        assertEquals("Projet Lucidia", task2.getProject().getName());
-        assertEquals("Projet Circus", task3.getProject().getName());
-        assertNull(task4.getProject());
+        database.itemDao().insertItem(TASK1);
+        database.itemDao().insertItem(TASK2);
+        database.itemDao().insertItem(TASK3);
 
-        */
+        List<Task> taskFromDB = LiveDataTestUtil.getValue(database.itemDao().sortAZItem());
+
+        assertSame(taskFromDB.get(0).getId(), TASK1.getId());
+        assertSame(taskFromDB.get(1).getId(), TASK3.getId());
+        assertSame(taskFromDB.get(2).getId(), TASK2.getId());
+
     }
 
     @Test
-    public void test_az_comparator() {
-        final Task task1 = new Task(1, 1, "aaa", 123);
-        final Task task2 = new Task(2, 2, "zzz", 124);
-        final Task task3 = new Task(3, 3, "hhh", 125);
+    public void test_za_comparator() throws InterruptedException {
+        database.projectDao().createProject(PROJECT_DEMO);
 
-        final ArrayList<Task> tasks = new ArrayList<>();
-        tasks.add(task1);
-        tasks.add(task2);
-        tasks.add(task3);
-        Collections.sort(tasks, new Task.TaskAZComparator());
+        database.itemDao().insertItem(TASK1);
+        database.itemDao().insertItem(TASK2);
+        database.itemDao().insertItem(TASK3);
 
-        assertSame(tasks.get(0), task1);
-        assertSame(tasks.get(1), task3);
-        assertSame(tasks.get(2), task2);
+        List<Task> taskFromDB = LiveDataTestUtil.getValue(database.itemDao().sortZAItem());
+
+        assertSame(taskFromDB.get(0).getId(), TASK2.getId());
+        assertSame(taskFromDB.get(1).getId(), TASK3.getId());
+        assertSame(taskFromDB.get(2).getId(), TASK1.getId());
+
     }
 
     @Test
-    public void test_za_comparator() {
-        final Task task1 = new Task(1, 1, "aaa", 123);
-        final Task task2 = new Task(2, 2, "zzz", 124);
-        final Task task3 = new Task(3, 3, "hhh", 125);
+    public void test_recent_comparator() throws InterruptedException {
+        database.projectDao().createProject(PROJECT_DEMO);
 
-        final ArrayList<Task> tasks = new ArrayList<>();
-        tasks.add(task1);
-        tasks.add(task2);
-        tasks.add(task3);
-        Collections.sort(tasks, new Task.TaskZAComparator());
+        database.itemDao().insertItem(TASK1);
+        database.itemDao().insertItem(TASK2);
+        database.itemDao().insertItem(TASK3);
 
-        assertSame(tasks.get(0), task2);
-        assertSame(tasks.get(1), task3);
-        assertSame(tasks.get(2), task1);
+        List<Task> taskFromDB = LiveDataTestUtil.getValue(database.itemDao().sortRecentItem());
+
+        assertSame(taskFromDB.get(0).getId(), TASK1.getId());
+        assertSame(taskFromDB.get(1).getId(), TASK2.getId());
+        assertSame(taskFromDB.get(2).getId(), TASK3.getId());
+
     }
 
     @Test
-    public void test_recent_comparator() {
-        final Task task1 = new Task(1, 1, "aaa", 123);
-        final Task task2 = new Task(2, 2, "zzz", 124);
-        final Task task3 = new Task(3, 3, "hhh", 125);
+    public void test_old_comparator() throws InterruptedException {
+        database.projectDao().createProject(PROJECT_DEMO);
 
-        final ArrayList<Task> tasks = new ArrayList<>();
-        tasks.add(task1);
-        tasks.add(task2);
-        tasks.add(task3);
-        Collections.sort(tasks, new Task.TaskRecentComparator());
+        database.itemDao().insertItem(TASK1);
+        database.itemDao().insertItem(TASK2);
+        database.itemDao().insertItem(TASK3);
 
-        assertSame(tasks.get(0), task3);
-        assertSame(tasks.get(1), task2);
-        assertSame(tasks.get(2), task1);
-    }
+        List<Task> taskFromDB = LiveDataTestUtil.getValue(database.itemDao().sortOldItem());
 
-    @Test
-    public void test_old_comparator() {
-        final Task task1 = new Task(1, 1, "aaa", 123);
-        final Task task2 = new Task(2, 2, "zzz", 124);
-        final Task task3 = new Task(3, 3, "hhh", 125);
+        assertSame(taskFromDB.get(0).getId(), TASK1.getId());
+        assertSame(taskFromDB.get(1).getId(), TASK2.getId());
+        assertSame(taskFromDB.get(2).getId(), TASK3.getId());
 
-        final ArrayList<Task> tasks = new ArrayList<>();
-        tasks.add(task1);
-        tasks.add(task2);
-        tasks.add(task3);
-        Collections.sort(tasks, new Task.TaskOldComparator());
-
-        assertSame(tasks.get(0), task1);
-        assertSame(tasks.get(1), task2);
-        assertSame(tasks.get(2), task3);
     }
 }

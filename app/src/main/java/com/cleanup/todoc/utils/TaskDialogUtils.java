@@ -1,6 +1,5 @@
 package com.cleanup.todoc.utils;
 
-
 import static com.cleanup.todoc.ui.MainActivity.itemViewModel;
 import static com.cleanup.todoc.ui.MainActivity.projectList;
 
@@ -20,38 +19,29 @@ import com.cleanup.todoc.R;
 import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 import com.cleanup.todoc.ui.MainActivity;
+import com.cleanup.todoc.ui.TasksAdapter;
 
 import java.util.Date;
 import java.util.List;
 
 public class TaskDialogUtils {
-    /**
-     * Dialog to create a new task
-     */
+    /**     * Dialog to create a new task     */
     @Nullable
     static AlertDialog dialog = null;
 
-    /**
-     * EditText that allows user to set the name of a task
-     */
+    /**     * EditText that allows user to set the name of a task     */
     @Nullable
     static EditText dialogEditText = null;
 
-    /**
-     * Spinner that allows the user to associate a project to a task
-     */
+    /**     * Spinner that allows the user to associate a project to a task     */
     @Nullable
     static Spinner dialogSpinner = null;
 
-    /**
-     * List of all projects available in the application
-     */
-    //static final Project[] allProjects = Project.getAllProjects();
+
     static final List<Project> allProjects = projectList;
 
-    /**
-     * Shows the Dialog for adding a Task
-     */
+    /**     * Shows the Dialog for adding a Task     */
+
     public static void showAddTaskDialog(Context context) {
         final AlertDialog dialog = getAddTaskDialog(context);
 
@@ -63,11 +53,8 @@ public class TaskDialogUtils {
         populateDialogSpinner();
     }
 
-    /**
-     * Returns the dialog allowing the user to create a new task.
-     *
-     * @return the dialog allowing the user to create a new task
-     */
+    /**     * Returns the dialog allowing the user to create a new task     */
+
     @NonNull
     static AlertDialog getAddTaskDialog(Context context) {
         final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(context, R.style.Dialog);
@@ -93,10 +80,9 @@ public class TaskDialogUtils {
         return dialog;
     }
 
-    /**
-     * Sets the data of the Spinner with projects to associate to a new task
-     */
+    /** Sets the data of the Spinner with projects to associate to a new task */
     static void populateDialogSpinner() {
+        assert dialog != null;
         final ArrayAdapter<Project> adapter = new ArrayAdapter<>(dialog.getContext(), android.R.layout.simple_spinner_item, allProjects);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         if (dialogSpinner != null) {
@@ -104,11 +90,7 @@ public class TaskDialogUtils {
         }
     }
 
-    /**
-     * Called when the user clicks on the positive button of the Create Task Dialog.
-     *
-     * @param dialogInterface the current displayed dialog
-     */
+    /** Called when the user clicks on the positive button of the Create Task Dialog.*/
     static void onPositiveButtonClick(DialogInterface dialogInterface) {
         // If dialog is open
         if (dialogEditText != null && dialogSpinner != null) {
@@ -127,9 +109,8 @@ public class TaskDialogUtils {
             }
             // If both project and name of the task have been set
             else if (taskProject != null) {
-                // TODO: Replace this by id of persisted task
-                long id = (long) (Math.random() * 50000);
 
+                long id = 0;
 
                 Task task = new Task(
                         id,

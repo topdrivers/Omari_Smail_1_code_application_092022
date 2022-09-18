@@ -1,9 +1,8 @@
 package com.cleanup.todoc.injection;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-
-
 import com.cleanup.todoc.repository.ItemDataRepository;
 import com.cleanup.todoc.repository.ProjectDataRepository;
 import com.cleanup.todoc.viewModel.ItemViewModel;
@@ -16,7 +15,6 @@ import java.util.concurrent.Executor;
 
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
-
     private final ItemDataRepository itemDataSource;
     private final ProjectDataRepository projectDataSource;
     private final Executor executor;
@@ -25,8 +23,10 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         this.itemDataSource = itemDataSource;
         this.projectDataSource = projectDataSource;
         this.executor = executor;
+
     }
 
+    @NonNull
     @Override
     public <T extends ViewModel> T create(Class<T> modelClass) {
         if (modelClass.isAssignableFrom(ItemViewModel.class)) {
@@ -34,4 +34,5 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }
+
 }

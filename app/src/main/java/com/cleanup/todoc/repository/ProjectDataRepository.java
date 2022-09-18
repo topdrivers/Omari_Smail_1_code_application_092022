@@ -7,8 +7,6 @@ import androidx.lifecycle.Observer;
 
 import com.cleanup.todoc.database.dao.ProjectDao;
 import com.cleanup.todoc.model.Project;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,13 +25,9 @@ public class ProjectDataRepository {
         projectList = generateProject();
         projectList = projectDao.getProject();
         return projectList;
-
-
-      // return this.projectDao.getProject().observe(@NonNull LifecycleOwner owner, @NonNull Observer<? super List<Project>> observer);
     }
 
     static LiveData<List<Project>> generateProject() {
-
         return new LiveData <List<Project>>() {
             @Override
             public void observe(@NonNull LifecycleOwner owner, @NonNull Observer<? super List<Project>> observer) {

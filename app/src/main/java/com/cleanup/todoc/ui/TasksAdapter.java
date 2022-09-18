@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cleanup.todoc.R;
@@ -36,21 +35,13 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
     @NonNull
     private final DeleteTaskListener deleteTaskListener;
 
-    /**
-     * Instantiates a new TasksAdapter.
-     *
-     * @param tasks the list of tasks the adapter deals with to set
-     */
+
     TasksAdapter(@NonNull final List<Task> tasks, @NonNull final DeleteTaskListener deleteTaskListener) {
         this.tasks = tasks;
         this.deleteTaskListener = deleteTaskListener;
     }
 
-    /**
-     * Updates the list of tasks the adapter deals with.
-     *
-     * @param tasks the list of tasks the adapter deals with to set
-     */
+    /**     * Updates the list of tasks the adapter deals with.*/
     @SuppressLint("NotifyDataSetChanged")
     void updateTasks(@NonNull final List<Task> tasks) {
         this.tasks = tasks;
@@ -74,27 +65,18 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
         return tasks.size();
     }
 
+    @NonNull
     public List<Task> getTasks(){
         return tasks;
     }
 
-    /**
-     * Listener for deleting tasks
-     */
+    /**     * Listener for deleting tasks     */
     public interface DeleteTaskListener {
-        /**
-         * Called when a task needs to be deleted.
-         *
-         * @param task the task that needs to be deleted
-         */
         void onDeleteTask(Task task);
     }
 
-    /**
-     * <p>ViewHolder for task items in the tasks list</p>
-     *
-     * @author Gaëtan HERFRAY
-     */
+    /**     * <p>ViewHolder for task items in the tasks list</p> */
+
     class TaskViewHolder extends RecyclerView.ViewHolder {
         /**
          * The circle icon showing the color of the project
@@ -121,12 +103,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.TaskViewHold
          */
         private final DeleteTaskListener deleteTaskListener;
 
-        /**
-         * Instantiates a new TaskViewHolder.
-         *
-         * @param itemView the view of the task item
-         * @param deleteTaskListener the listener for when a task needs to be deleted to set
-         */
+
         TaskViewHolder(@NonNull View itemView, @NonNull DeleteTaskListener deleteTaskListener) {
             super(itemView);
 

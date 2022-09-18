@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 
 
 import com.cleanup.todoc.database.dao.ItemDao;
-import com.cleanup.todoc.model.Project;
 import com.cleanup.todoc.model.Task;
 
 import java.util.List;
@@ -20,11 +19,9 @@ public class ItemDataRepository {
     public ItemDataRepository(ItemDao itemDao) { this.itemDao = itemDao; }
 
     // --- GET ---
-
     public LiveData<List<Task>> getItems(){ return this.itemDao.getItems(); }
 
     // --- CREATE ---
-
     public void createItem(Task task){ itemDao.insertItem(task); }
 
     // --- DELETE ---
